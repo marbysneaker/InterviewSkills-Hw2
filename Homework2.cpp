@@ -12,12 +12,15 @@
 // • n == nums.length 
 // • 1 <= n <= 5 * 104 
 // • -109 <= nums[i] <= 109 
+
+
 int majorityElement(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
         int answer = nums[0];
         int result = 0;
         int test = 1;
         int temp =nums[0];
-        sort(nums.begin(), nums.end());
+        
         for(int i = 1; i<nums.size(); i++){
             if(temp == nums[i]){
                 test++;
@@ -105,6 +108,32 @@ int majorityElement(vector<int>& nums) {
 // Constraints: 
 // • 1 <= s.length <= 104 
 // • s consists of lowercase English letters. 
+
+    string removeDuplicateLetters(string s) {
+        vector<int>last(26);
+        vector<int>vis(26);
+        string ans = "";
+        int n = s.length();
+        
+        for(int i = 0; i<n;i++)
+            last[s[i]-'a'] = i;
+        
+        for(int i = 0; i<n; i++){
+            if(vis[s[i] - 'a'])
+                continue;
+            while(!ans.empty() && ans.back() > s[i] && last[ans.back()-'a'] > i){
+                vis[ans.back() - 'a'] = false;
+                ans.pop_back();
+                
+            }
+            ans.push_back(s[i]);
+            vis[s[i] - 'a'] = true;
+            
+        }
+        return ans;
+       
+            
+            
 // 5)  Shortest Subarray with Sum at Least K Given an integer array nums and an integer k, return the length of the shortest non-empty subarray of 
 // nums with a sum of at least k. If there is no such subarray, return -1. 
 // A subarray is a contiguous part of an array. 
